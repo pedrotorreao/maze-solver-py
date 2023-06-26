@@ -1,52 +1,51 @@
 import tkinter as tk
-
-# from tkinter import Tk, BOTH, Canvas
+from point import Point
+from line import Line
+from cell import Cell
 
 
 class Window:
+    # constructor:
     def __init__(self, width, height):
+        # canvas dimensions:
         self.width = width
         self.height = height
-        self.__root = tk.Tk()
-        self.__root.title("Maze Solver")
-        self.__canvas = tk.Canvas(
-            self.__root, width=self.width, height=self.height, bg="white"
+        # create the root window/container :
+        self._root = tk.Tk()
+        self._root.title("Maze Solver")
+        # create a canvas widget inside the root window:
+        self._canvas = tk.Canvas(
+            self._root, width=self.width, height=self.height, bg="white"
         )
-        # self.__canvas.pack(anchor=tk.CENTER, expand=True)
-        self.__canvas.pack(fill=tk.BOTH, expand=True)
-        self.__running = False
-        self.__root.protocol("WM_DELETE_WINDOW", self.close)
+        # allocate all the space available in the window for the canvas and
+        # make the canvas fill it along both axis:
+        self._canvas.pack(fill=tk.BOTH, expand=True)
+        # boolean that indicates whether the window is being used:
+        self._running = False
+        # connect the close() method to the "delete window" action:
+        self._root.protocol("WM_DELETE_WINDOW", self.close)
 
+    # redraw all the graphics in the window:
     def redraw(self):
-        self.__root.update_idletasks()
-        self.__root.update()
+        # process those events which are not running or stable:
+        self._root.update_idletasks()
+        # process all the events present in the application:
+        self._root.update()
 
+    # keep the window running until it is closed:
     def wait_for_close(self):
-        self.__running = True
-        while self.__running:
+        # update window running state:
+        self._running = True
+        while self._running:
             self.redraw()
         print("... closing the window!")
 
+    # stop program from running when window is closed:
     def close(self):
-        self.__running = False
+        # update window running state:
+        self._running = False
 
+    # take an instance of a Line and a fill_color as inputs, then call the
+    # Line's draw() method:
     def draw_line(self, line, fill_color="red"):
-        line.draw(self.__canvas, fill_color)
-
-
-class Point:
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
-
-
-class Line:
-    def __init__(self, p1, p2):
-        self.__p1 = p1
-        self.__p2 = p2
-
-    def draw(self, cnv, fill_color):
-        cnv.create_line(
-            self.__p1.x, self.__p1.y, self.__p2.x, self.__p2.y, fill=fill_color, width=2
-        )
-        cnv.pack(fill=tk.BOTH, expand=1)
+        line.draw(self._canvas, fill_color)
