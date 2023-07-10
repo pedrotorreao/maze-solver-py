@@ -18,7 +18,7 @@ class Cell:
         self.has_bottom_wall = True
 
     # draw the cell:
-    def draw(self, fill_color):
+    def draw(self, fill_color="black"):
         if self._wndw is None:
             return
         # if the cell has a left wall, draw it:
