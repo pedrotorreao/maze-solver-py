@@ -5,7 +5,7 @@ from point import Point
 
 class Maze:
     # constructor:
-    def __init__(self, wndw, p, num_rows, num_cols, cell_sz_x, cell_sz_y):
+    def __init__(self, p, num_rows, num_cols, cell_sz_x, cell_sz_y, wndw=None):
         # coordinates for the top-left corner:
         self._p = p
         # window container:
@@ -48,6 +48,8 @@ class Maze:
 
     # go over the grid drawinf each cell:
     def _draw_cells(self):
+        if self._wndw is None:
+            return
         for r in range(0, self._num_rows):
             for c in range(0, self._num_cols):
                 self._cells[r][c].draw()
@@ -55,5 +57,7 @@ class Maze:
 
     # slow down the drawing to allow the user to visualize it:
     def _animate(self):
+        if self._wndw is None:
+            return
         self._wndw.redraw()
         time.sleep(0.05)
