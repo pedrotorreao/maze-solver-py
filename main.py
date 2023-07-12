@@ -8,7 +8,7 @@ from maze import Maze
 def main():
     wdw = Window(1000, 1000)
 
-    mz = Maze(wdw, Point(100, 100), 10, 10, 50, 50)
+    # mz = Maze(Point(100, 100), 10, 10, 50, 50, wdw)
     # mz._create_cells()
 
     # cell_1 = Cell(wdw, Point(50, 50), Point(100, 100))
