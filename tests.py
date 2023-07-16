@@ -60,6 +60,18 @@ class Tests(unittest.TestCase):
             num_rows,
         )
 
+    def test_maze_break_entrance_and_exit(self):
+        mz_1 = Maze(Point(30, 45), 15, 15, 5, 5)
+
+        self.assertEqual(
+            mz_1._cells[0][0].has_top_wall,
+            False,
+        )
+        self.assertEqual(
+            mz_1._cells[mz_1._num_rows - 1][mz_1._num_cols - 1].has_bottom_wall,
+            False,
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
