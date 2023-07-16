@@ -16,38 +16,41 @@ class Cell:
         self.has_right_wall = True
         self.has_top_wall = True
         self.has_bottom_wall = True
+        # cell state:
+        self._visited = False
 
     # draw the cell:
     def draw(self, fill_color="black"):
         if self._wndw is None:
             return
+
         # if the cell has a left wall, draw it:
+        left_wall = Line(Point(self._p1.x, self._p1.y), Point(self._p1.x, self._p2.y))
         if self.has_left_wall:
-            left_wall = Line(
-                Point(self._p1.x, self._p1.y), Point(self._p1.x, self._p2.y)
-            )
             self._wndw.draw_line(left_wall, fill_color)
+        else:
+            self._wndw.draw_line(left_wall, "white")
 
         # if the cell has a right wall, draw it:
+        right_wall = Line(Point(self._p2.x, self._p1.y), Point(self._p2.x, self._p2.y))
         if self.has_right_wall:
-            right_wall = Line(
-                Point(self._p2.x, self._p1.y), Point(self._p2.x, self._p2.y)
-            )
             self._wndw.draw_line(right_wall, fill_color)
+        else:
+            self._wndw.draw_line(right_wall, "white")
 
         # if the cell has a top wall, draw it:
+        top_wall = Line(Point(self._p1.x, self._p1.y), Point(self._p2.x, self._p1.y))
         if self.has_top_wall:
-            top_wall = Line(
-                Point(self._p1.x, self._p1.y), Point(self._p2.x, self._p1.y)
-            )
             self._wndw.draw_line(top_wall, fill_color)
+        else:
+            self._wndw.draw_line(top_wall, "white")
 
         # if the cell has a bottom wall, draw it:
+        bottom_wall = Line(Point(self._p1.x, self._p2.y), Point(self._p2.x, self._p2.y))
         if self.has_bottom_wall:
-            bottom_wall = Line(
-                Point(self._p1.x, self._p2.y), Point(self._p2.x, self._p2.y)
-            )
             self._wndw.draw_line(bottom_wall, fill_color)
+        else:
+            self._wndw.draw_line(bottom_wall, "white")
 
     def draw_move(self, to_cell, undo=False):
         # calculate starting cell center:
