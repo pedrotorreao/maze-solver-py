@@ -37,6 +37,9 @@ class Maze:
         # break walls for traversing the maze:
         self._break_walls_recursively(0, 0)
 
+        # reset the visited property of all the cells:
+        self._reset_cells_visited()
+
     # populate the 2d grid with Cell objects:
     def _create_cells(self):
         for r in range(0, self._num_rows):
@@ -151,3 +154,9 @@ class Maze:
 
             # explore the next cell:
             self._break_walls_recursively(moving_to[0], moving_to[1])
+
+    # reset the 'visited' property of all the cells in the maze to False:
+    def _reset_cells_visited(self):
+        for r in range(0, self._num_rows):
+            for c in range(0, self._num_cols):
+                self._cells[r][c]._visited = False
