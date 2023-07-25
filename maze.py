@@ -160,3 +160,92 @@ class Maze:
         for r in range(0, self._num_rows):
             for c in range(0, self._num_cols):
                 self._cells[r][c]._visited = False
+
+    # solve maze using a depth-first recursive approach:
+    def _solve_dfs_r(self, i, j):
+        self._animate()
+
+        # mark current cell as visited:
+        self._cells[i][j]._visited = True
+
+        # if arrived at the exit of the maze, return True:
+        if (i == self._num_rows - 1) and (j == self._num_cols - 1):
+            return True
+
+        # move UP:
+        if (
+            (i > 0)
+            and (not self._cells[i - 1][j]._visited)
+            and (not self._cells[i][j].has_left_wall)
+        ):
+            move_from = self._cells[i][j]
+            move_to = self._cells[i - 1][j]
+
+            move_from.draw_move(move_to)
+
+            valid_move = self._solve_dfs_r(i - 1, j)
+
+            if valid_move:
+                return True
+            else:
+                move_from.draw_move(move_to, True)
+
+        # move RIGHT:
+        if (
+            (j < self._num_cols - 1)
+            and (not self._cells[i][j + 1]._visited)
+            and (not self._cells[i][j].has_bottom_wall)
+        ):
+            move_from = self._cells[i][j]
+            move_to = self._cells[i][j + 1]
+
+            move_from.draw_move(move_to)
+
+            valid_move = self._solve_dfs_r(i, j + 1)
+
+            if valid_move:
+                return True
+            else:
+                move_from.draw_move(move_to, True)
+
+        # move DOWN:
+        if (
+            (i < self._num_rows - 1)
+            and (not self._cells[i + 1][j]._visited)
+            and (not self._cells[i][j].has_right_wall)
+        ):
+            move_from = self._cells[i][j]
+            move_to = self._cells[i + 1][j]
+
+            move_from.draw_move(move_to)
+
+            valid_move = self._solve_dfs_r(i + 1, j)
+
+            if valid_move:
+                return True
+            else:
+                move_from.draw_move(move_to, True)
+
+        # move LEFT:
+        if (
+            (j > 0)
+            and (not self._cells[i][j - 1]._visited)
+            and (not self._cells[i][j].has_top_wall)
+        ):
+            move_from = self._cells[i][j]
+            move_to = self._cells[i][j - 1]
+
+            move_from.draw_move(move_to)
+
+            valid_move = self._solve_dfs_r(i, j - 1)
+
+            if valid_move:
+                return True
+            else:
+                move_from.draw_move(move_to, True)
+
+        return False
+
+    # solve maze caller:
+    def solve(self):
+        return self._solve_dfs_r(0, 0)

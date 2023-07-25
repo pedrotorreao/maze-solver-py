@@ -8,8 +8,12 @@ from maze import Maze
 def main():
     # create window container:
     wdw = Window(1000, 1000)
+
     # create maze:
     mz = Maze(Point(100, 100), 10, 10, 50, 50, wdw)
+
+    # solve maze:
+    mz.solve()
 
     # watch for this event:
     wdw.wait_for_close()
